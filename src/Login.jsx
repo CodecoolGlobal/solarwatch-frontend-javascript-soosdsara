@@ -7,14 +7,9 @@ function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  function handleNameChange(e) {
-    setUsername(e.target.value);
-  }
 
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -22,6 +17,7 @@ function Login() {
     
     if (!response.ok) {
       localStorage.removeItem("jwt");
+      setError("Incorrect username or password");
       throw new Error("Incorrect username or password");
     }
     
@@ -47,9 +43,10 @@ function Login() {
       <header className="header">
         <h1>Sunset Horizon</h1>
       </header>
-      <div className="content">
+      <div className="content login-content">
         <div className="container">
           <h2>Login</h2>
+          {error && <p className="error-message">{error}</p>}
           <form onSubmit={handleLogin}>
             <label htmlFor="username">Username:</label>
             <input
@@ -57,7 +54,7 @@ function Login() {
               id="username"
               name="username"
               value={username}
-              onChange={handleNameChange}
+              onChange={(e) => setUsername(e.target.value)}
             />
 
             <label htmlFor="password">Password:</label>
@@ -66,7 +63,7 @@ function Login() {
               id="password"
               name="password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button type="submit" className="login-button">

@@ -55,7 +55,7 @@ function SolarWatch() {
         <h1>Sunset Horizon</h1>
         <button className="logout-button" onClick={handleLogout}>Logout</button>
       </header>
-      <div className="content">
+      <div className="content solar-content">
         <div className="container">
           <h2>Solar Watch</h2>
           <form onSubmit={handleSubmit}>
