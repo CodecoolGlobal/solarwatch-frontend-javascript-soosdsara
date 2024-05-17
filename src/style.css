@@ -90,8 +90,8 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 80%; /* Adjust width as needed */
-  max-width: 400px; /* Limit maximum width */
+  width: 80%;
+  max-width: 400px;
 }
 
 .container h2 {
@@ -113,8 +113,8 @@ button:hover {
   border-radius: 5px;
 }
 
-
 .results {
-  margin-top: 1rem;
+  margin-top: 1vw;
+  margin-left: 2vw;
 }
 

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Page from "./Page";
+import Form from "./Form";
 
-function SolarWatch() {
+const SolarWatch = () => {
   const [date, setDate] = useState("");
   const [city, setCity] = useState("");
   const [sunrise, setSunrise] = useState("");
@@ -35,69 +37,33 @@ function SolarWatch() {
         setSunrise(data.sunrise);
         setSunset(data.sunset);
       } else {
-        console.error(await response.text());
         setError("Failed to fetch sunrise and sunset times.");
       }
     } catch (err) {
-      console.error("Error fetching sunrise and sunset times:", err);
       setError("An error occurred. Please try again later.");
     }
   }
 
-  function handleLogout() {
-    localStorage.removeItem("jwt");
-    navigate('/');
-  }
-
   return (
-    <div className="page">
-      <header className="header">
-        <h1>Sunset Horizon</h1>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-      </header>
-      <div className="content solar-content">
-        <div className="container">
-          <h2>Solar Watch</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-
-            <label htmlFor="city">City:</label>
-            <input
-              placeholder={"Londol"}
-              type="text"
-              id="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-
-            <button type="submit" className="submit-button">
-              Get Sunrise & Sunset
-            </button>
-          </form>
-          {error && <p className="error-message">{error}</p>}
-          {sunrise && sunset && (
-            <div className="results">
-              <p>
-                Sunrise: <span>{sunrise} </span>
-              </p>
-              <p>
-                Sunset: <span>{sunset}</span>
-              </p>
-            </div>
-          )}
+    <Page showLogout={true} contentClass="solar-content">
+      <Form
+        title="Solar Watch"
+        fields={[
+          { label: "Date:", type: "date", id: "date", value: date, onChange: (e) => setDate(e.target.value) },
+          { label: "City:", type: "text", id: "city", value: city, onChange: (e) => setCity(e.target.value) },
+        ]}
+        onSubmit={handleSubmit}
+        buttonText="Get Sunrise & Sunset"
+        errorMessage={error}
+      />
+      {sunrise && sunset && (
+        <div className="results container">
+          <p>Sunrise: <span>{sunrise}</span></p>
+          <p>Sunset: <span>{sunset}</span></p>
         </div>
-      </div>
-      <footer className="footer">
-        <p>&copy; 2024 Sunset Horizon. All rights reserved.</p>
-      </footer>
-    </div>
+      )}
+    </Page>
   );
-}
+};
 
 export default SolarWatch;

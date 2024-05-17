@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Page from "./Page";
+import Form from "./Form";
 
-function Registration() {
+const Registration = () => {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleRegistration(e) {
     e.preventDefault();
-    await loginUser();
+    await registerUser();
     navigate(`/`);
   }
 
-  async function loginUser() {
+  async function registerUser() {
     await fetch("/api/member/register", {
       method: "POST",
       headers: {
@@ -24,43 +25,18 @@ function Registration() {
   }
 
   return (
-    <div className="page">
-      <header className="header">
-        <h1>Sunset Horizon</h1>
-      </header>
-      <div className="content reg-content">
-        <div className="container">
-          <h2>Registration</h2>
-          <form onSubmit={handleRegistration}>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <button type="submit" className="registration-button">
-              Registration
-            </button>
-          </form>
-        </div>
-      </div>
-      <footer className="footer">
-        <p>&copy; 2024 Sunset Horizon. All rights reserved.</p>
-      </footer>
-    </div>
+    <Page contentClass="reg-content">
+      <Form
+        title="Registration"
+        fields={[
+          { label: "Username:", type: "text", id: "username", value: username, onChange: (e) => setUsername(e.target.value) },
+          { label: "Password:", type: "password", id: "password", value: password, onChange: (e) => setPassword(e.target.value) },
+        ]}
+        onSubmit={handleRegistration}
+        buttonText="Register"
+      />
+    </Page>
   );
-}
+};
 
 export default Registration;
