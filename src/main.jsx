@@ -1,24 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./Login";
-import Registration from "./Registration";
-import SolarWatch from "./Solar-watch";
 import './style.css';
+import Login from "./page/Login";
+import Registration from "./page/Registration";
+import SolarWatch from "./page/Solar-watch";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Login />
   },
   {
     path: "/registration",
-    element: <Registration />,
+    element: <Registration />
   },
   {
     path: "/solar-watch",
-    element: <SolarWatch />,
+    element: <SolarWatch />
   },
 ]);
 

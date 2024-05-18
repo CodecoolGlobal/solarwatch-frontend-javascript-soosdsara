@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Page from "./Page";
-import Form from "./Form";
+import Page from "../component/Page";
+import Form from "../component/Form";
 
 const Registration = () => {
   const navigate = useNavigate();

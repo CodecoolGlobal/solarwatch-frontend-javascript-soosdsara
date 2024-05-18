@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Page from "./Page";
-import Form from "./Form";
+import Page from "../component/Page";
+import Form from "../component/Form";
 
 const SolarWatch = () => {
   const [date, setDate] = useState("");
@@ -15,7 +15,7 @@ const SolarWatch = () => {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
-      navigate('/');
+      navigate("/");
     }
   }, [navigate]);
 
@@ -29,7 +29,7 @@ const SolarWatch = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (response.ok) {
@@ -49,8 +49,21 @@ const SolarWatch = () => {
       <Form
         title="Solar Watch"
         fields={[
-          { label: "Date:", type: "date", id: "date", value: date, onChange: (e) => setDate(e.target.value) },
-          { label: "City:", type: "text", id: "city", value: city, onChange: (e) => setCity(e.target.value) },
+          {
+            label: "Date:",
+            type: "date",
+            id: "date",
+            value: date,
+            onChange: (e) => setDate(e.target.value),
+          },
+          {
+            label: "City:",
+            type: "text",
+            id: "city",
+            value: city,
+            onChange: (e) => setCity(e.target.value),
+            placeholder: "London",
+          },
         ]}
         onSubmit={handleSubmit}
         buttonText="Get Sunrise & Sunset"
@@ -58,8 +71,12 @@ const SolarWatch = () => {
       />
       {sunrise && sunset && (
         <div className="results container">
-          <p>Sunrise: <span>{sunrise}</span></p>
-          <p>Sunset: <span>{sunset}</span></p>
+          <p>
+            Sunrise: <span>{sunrise}</span>
+          </p>
+          <p>
+            Sunset: <span>{sunset}</span>
+          </p>
         </div>
       )}
     </Page>

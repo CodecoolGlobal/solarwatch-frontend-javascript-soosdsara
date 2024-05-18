@@ -4,10 +4,10 @@ const Form = ({ title, fields, onSubmit, buttonText, errorMessage, additionalBut
     <h2>{title}</h2>
     {errorMessage && <p className="error-message">{errorMessage}</p>}
     <form onSubmit={onSubmit}>
-      {fields.map(({ label, type, id, value, onChange }) => (
+      {fields.map(({ label, type, id, value, onChange, placeholder }) => (
         <div key={id}>
           <label htmlFor={id}>{label}</label>
-          <input type={type} id={id} value={value} onChange={onChange} />
+          <input type={type} id={id} value={value} onChange={onChange} placeholder={placeholder}/>
         </div>
       ))}
       <button type="submit" className="submit-button">{buttonText}</button>
